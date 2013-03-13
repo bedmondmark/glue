@@ -4,9 +4,9 @@ Retina Sprites: Ratios
 What is this for?
 ------------------
 
-These days, some devices like the iPhone 4, or the new Macbook Pro have screens with higher pixel density than usual. For example iPhone4's Retina Display doubles the pixel density we use to see on handheld devices.
+These days, some devices like the iPhone 4, or the new Macbook Pro have screens with a higher pixel density than usual. For example, the iPhone4's Retina Display doubles the pixel density we used to see on handheld devices.
 
-This change improves the sharpness of vector graphics, but not images... Why? These devices scale vector graphics like text without losing quality, but in order to make images bigger, images are automatically pixel-doubled like in the following example.
+This change improves the sharpness of vector graphics, but not bitmap images... Why? These devices scale vector graphics like text without losing quality, but in order to make images bigger, images are automatically pixel-doubled like in the following example.
 
 .. image:: img/nonretina.png
 
@@ -15,15 +15,15 @@ Basically, provide two different version of each image.
 
 .. image:: img/retina.png
 
-**And... how can we detect wich image should we use?** CSS Media Queries. Modern browsers `(anything after IE 8.0) <http://caniuse.com/#feat=css-mediaqueries>`_ supports them, and they allow us to specify different styles based on the ``device-pixel-ratio`` of the browser.
+**And... how can we detect which image should we use?** CSS Media Queries. Modern browsers `(anything after IE 8.0) <http://caniuse.com/#feat=css-mediaqueries>`_ supports them, and they allow us to specify different styles based on the ``device-pixel-ratio`` of the browser.
 
-**Can glue help?** Yes, using ``--ratios`` you can choose different ratios you want to build of each sprite. Glue will create one sprite for each ratio and will add all the neccesary CSS magic to make the browser use the high DPI image if the browser needs it. You can also use ``--retina``, it's a shortcut for ``--ration=2,1``.
+**Can glue help?** Yes, using ``--ratios`` you can choose different ratios you want to build of each sprite. Glue will create one sprite for each ratio and will add all the neccesary CSS magic to make the browser use the high DPI image if the browser needs it. You can also use ``--retina`` - it's a shortcut for ``--ratios=2,1``.
 
 
-How --retina and --ratios work?
--------------------------------
+How do --retina and --ratios work?
+----------------------------------
 
-As ``glue`` cannot do magic scaling up the source images, **it assumes that these images are the biggests you want to serve**. *(i.e. For iPhone 4 Retina these images should be 2x the final size you want)*, then glue will create one sprite for each ratio you set in the command line or only ``2x`` if you use ``--retina``::
+As ``glue`` cannot do magic scaling up of source images, **it assumes that these images are the biggest you want to serve**. *(i.e. For iPhone 4 Retina these images should be 2x the final size you want)*, then glue will create one sprite for each ratio you set in the command line or only ``2x`` if you use ``--retina``::
 
     $ glue icons sprites --retina
 
@@ -94,7 +94,7 @@ Wich ratios should I target?
 
 Is up to you, but using ``2`` and ``1.5`` should be enough for most of the devices.
 
-Here you have a list of suggested ratios for some famous devices, `(full list) <http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density>`_:
+Here you have a list of suggested ratios for some popular devices, `(full list) <http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density>`_:
 
 ===================== ================ ============ ================
 Device                Screen size      dpi          Suggested ratio
@@ -136,11 +136,11 @@ Galaxy Y (S5360)      240 × 320        133ppi       0.75
 Avoiding undesired shades with small images
 -------------------------------------------
 
-After creating your bigger sprite, ``glue`` scale down the image to the appropriate ratio size using ``Pillow``. In some situations ``Pillow`` scaling algorithm perform really bad and it generates some horrible shades / gray borders.
+After creating your bigger sprite, ``glue`` scales down the image to the appropriate ratio size using ``Pillow``. In some situations the ``Pillow`` scaling algorithm performs really badly and it generates some horrible shades / gray borders.
 
 In order to avoid them you should use the ``--imagemagick`` option. This option will make ``glue`` use ``ImageMagick`` to scale down images instead of ``Pillow``.
 
-As you can see in the next example not using ``--imagemagick`` will make your scaled sprite look quite bad.
+As you can see in the next example, not using ``--imagemagick`` will make your scaled sprite look quite bad.
 
 .. figure:: img/retina_borders.png
 
